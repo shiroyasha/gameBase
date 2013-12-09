@@ -1,12 +1,21 @@
 define (require, exports, module) ->
 
-	$ ->
-		
-		area = $('canvas')[0];
-		c    = area.getContext '2d'
+	area = $('canvas')[0];
+	c    = area.getContext '2d'
+	RenderQueue = require 'RenderQueue'
+	Background = require 'Background'
+	BackgroundDots = require 'BackgroundDots'
 
-		render = (dt)->
-			
+
+
+	$ ->
+		queue = new RenderQueue()
+		queue.add new Background()
+		queue.add new BackgroundDots()
+
+		render = (dt) ->
+			queue.update(dt)
+			queue.render(c)		
 
 		lastTime = null
 		_loop = (time) ->
