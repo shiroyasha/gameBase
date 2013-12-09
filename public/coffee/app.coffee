@@ -1,14 +1,21 @@
-
 define (require, exports, module) ->
 
-	GO = require 'gameObject'
-	Asteroid = (require 'asteroid').Asteroid
-
-
 	$ ->
+		
 		area = $('canvas')[0];
-		c = area.getContext '2d'
-		console.log new GO()
+		c    = area.getContext '2d'
 
-		a1 = new Asteroid(50, 50, 20, "small", 0, 0)
-		a1.renderVector(c)
+		render = (dt)->
+			
+
+		lastTime = null
+		_loop = (time) ->
+			if lastTime == null then lastTime = time
+			dt = time - lastTime
+			
+			render(dt)
+			lastTime = time
+
+			requestAnimationFrame (_loop)
+
+		requestAnimationFrame (_loop)
