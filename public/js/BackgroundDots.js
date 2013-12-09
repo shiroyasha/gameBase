@@ -3,18 +3,19 @@
   define(function(require, exports, module) {
     var BackgroundDots, DOT_SIZE, Z_FAKTOR, createDot;
     Z_FAKTOR = 10;
-    DOT_SIZE = 5;
+    DOT_SIZE = 2;
     createDot = function() {
       return {
-        x: Math.random() * 800,
-        y: Math.random() * 600,
+        x: Math.random() * WIDTH,
+        y: Math.random() * HEIGHT,
         z: Math.random() * Z_FAKTOR,
         r: (Math.random() + 1) * DOT_SIZE
       };
     };
     BackgroundDots = (function() {
-      function BackgroundDots() {
+      function BackgroundDots(acc) {
         var i, _i;
+        this.acc = acc != null ? acc : 0.05;
         this.arrayDots = [];
         for (i = _i = 0; _i <= 100; i = ++_i) {
           this.arrayDots.push(createDot());
@@ -23,15 +24,68 @@
 
       BackgroundDots.prototype.update = function(dt) {
         var dot, _i, _len, _ref, _results;
-        this.dx = 1;
-        this.dy = 1;
-        this.moveFactor = 0.001;
+        console.log(this.acc);
+        this.dx = 0;
+        if (KEYS[37] != null) {
+          this.dx -= 1 * this.acc;
+          if (this.acc < 1) {
+            this.acc += this.acc;
+          }
+        } else {
+          this.dx -= 1 * this.acc;
+          if (this.acc > 0) {
+            this.acc -= this.acc;
+          }
+        }
+        if (KEYS[39] != null) {
+          this.dx += 1 * this.acc;
+          if (this.acc < 1) {
+            this.acc += this.acc;
+          }
+        } else {
+          this.dx += 1 * this.acc;
+          if (this.acc > 0) {
+            this.acc -= this.acc;
+          }
+        }
+        this.dy = 0;
+        if (KEYS[38] != null) {
+          this.dy -= 1 * this.acc;
+          if (this.acc < 1) {
+            this.acc += this.acc;
+          }
+        } else {
+          this.dy -= 1 * this.acc;
+          if (this.acc > 0) {
+            this.acc -= this.acc;
+          }
+        }
+        if (KEYS[40] != null) {
+          this.dy += 1 * this.acc;
+          if (this.acc < 1) {
+            this.acc += this.acc;
+          }
+        } else {
+          this.dy += 1 * this.acc;
+          if (this.acc > 0) {
+            this.acc -= this.acc;
+          }
+        }
+        this.moveFactor = 0.05;
         _ref = this.arrayDots;
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           dot = _ref[_i];
-          dot.x += this.dx * (1 / dot.Z_FAKTOR);
-          _results.push(dot.y += this.dy * (1 / dot.Z_FAKTOR));
+          dot.x += this.dx * dot.z * this.moveFactor;
+          dot.y += this.dy * dot.z * this.moveFactor;
+          if (dot.x >= WIDTH) {
+            dot.x = 0;
+          }
+          if (dot.y >= HEIGHT) {
+            _results.push(dot.y = 0);
+          } else {
+            _results.push(void 0);
+          }
         }
         return _results;
       };
@@ -43,7 +97,7 @@
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           dot = _ref[_i];
           c.beginPath();
-          c.arc(dot.x, dot.y, dot.r, 0, 2 * Math.PI, false);
+          c.fillRect(~~dot.x, ~~dot.y, dot.r, dot.r);
           c.fillStyle = "white";
           _results.push(c.fill());
         }

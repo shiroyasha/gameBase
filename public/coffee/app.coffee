@@ -7,6 +7,9 @@ define (require, exports, module) ->
 	BackgroundDots = require 'BackgroundDots'
 
 
+	$(document).on 'keydown', (e) -> KEYS[e.keyCode] = true
+	$(document).on 'keyup', (e) -> delete KEYS[e.keyCode]
+
 
 	$ ->
 		queue = new RenderQueue()

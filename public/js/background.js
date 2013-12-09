@@ -23,7 +23,7 @@
 
       Background.prototype.render = function(c) {
         c.fillStyle = "rgb(" + (~~this.boja[0]) + ", " + (~~this.boja[1]) + ", " + (~~this.boja[2]) + ")";
-        return c.fillRect(0, 0, 800, 600);
+        return c.fillRect(0, 0, WIDTH, HEIGHT);
       };
 
       return Background;

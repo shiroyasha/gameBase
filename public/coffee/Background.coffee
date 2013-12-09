@@ -20,7 +20,9 @@ define (require, exports, module) ->
 			
 		render: (c) ->
 			#console.log "rgb(#{~~@boja[0]}, #{~~@boja[1]}, #{~~@boja[2]})"
+			#c.globalCompositeOperation = 'lighter'
 			c.fillStyle = "rgb(#{~~@boja[0]}, #{~~@boja[1]}, #{~~@boja[2]})"
-			c.fillRect( 0,0, 800,600 )
+			#c.fillStyle = 'rgba(0,0,0, 0.2)'
+			c.fillRect( 0, 0, WIDTH, HEIGHT )
 
 	return Background

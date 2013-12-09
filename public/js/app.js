@@ -7,6 +7,12 @@
     RenderQueue = require('RenderQueue');
     Background = require('Background');
     BackgroundDots = require('BackgroundDots');
+    $(document).on('keydown', function(e) {
+      return KEYS[e.keyCode] = true;
+    });
+    $(document).on('keyup', function(e) {
+      return delete KEYS[e.keyCode];
+    });
     return $(function() {
       var lastTime, queue, render, _loop;
       queue = new RenderQueue();

@@ -1,12 +1,44 @@
 <html>
 <head>
 	<title>Game</title>
+
+	<style>
+		html, body {
+			margin: 0;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
 </head>
 
 <body>
 	<canvas width="800" height="600"></canvas>
 
 	<script src='/vendor/jquery.js'></script>
+
+	<script type="text/javascript">
+
+		KEYS = {}
+		
+		function windowSizeUpdate() {
+			WIDTH = $(window).width()
+			HEIGHT = $(window).height()
+
+			console.log( WIDTH, HEIGHT )
+
+			$("canvas")[0].width = WIDTH
+			$("canvas")[0].height = HEIGHT
+		}
+
+		$(function(){
+			windowSizeUpdate();
+			$(window).on( 'resize', windowSizeUpdate );
+		});
+		
+
+		
+	</script>
+
 	<script src='/vendor/require.js' data-main='/js/app.js'></script>
 </body>
 </html>
