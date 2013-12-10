@@ -10,7 +10,7 @@ define (require, exports, module) ->
 		r: (Math.random() + 1)*DOT_SIZE
 	}
 
-	class BackgroundDots
+	class Stars
 
 		constructor: (@acc = 0.05)->
 			@arrayDots = []
@@ -72,4 +72,4 @@ define (require, exports, module) ->
 				c.fillRect(~~dot.x, ~~dot.y, dot.r, dot.r)
 				c.fillStyle = "white"
 				c.fill()
-	return BackgroundDots
+	return Stars

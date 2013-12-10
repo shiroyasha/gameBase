@@ -4,7 +4,7 @@ define (require, exports, module) ->
 	c    = area.getContext '2d'
 	RenderQueue = require 'RenderQueue'
 	Background = require 'Background'
-	BackgroundDots = require 'BackgroundDots'
+	Stars = require 'Stars'
 
 
 	$(document).on 'keydown', (e) -> KEYS[e.keyCode] = true
@@ -14,7 +14,7 @@ define (require, exports, module) ->
 	$ ->
 		queue = new RenderQueue()
 		queue.add new Background()
-		queue.add new BackgroundDots()
+		queue.add new Stars()
 
 		render = (dt) ->
 			queue.update(dt)
