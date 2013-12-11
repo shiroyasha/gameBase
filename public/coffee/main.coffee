@@ -19,7 +19,7 @@ define (require, exports, module) ->
 		#		d.y = Math.round((d.y/magnitude)*1000)/1000
 
 		addMouseMotion = (x,y) ->
-			direction = app.model.me.direction
+			direction = app.model.inputDirection
 			position  = app.model.me.position
 
 			dx = x - position.x
@@ -38,7 +38,7 @@ define (require, exports, module) ->
 			console.log "MouseMotion: ",direction.x,direction.y
 
 		removeMouseMotion = ->
-			direction = app.model.me.direction
+			direction = app.model.inputDirection
 			direction.x = 0
 			direction.y = 0
 
@@ -49,7 +49,7 @@ define (require, exports, module) ->
 			if keysDown[e.which]? then return
 			keysDown[e.which] = true
 
-			direction = app.model.me.direction
+			direction = app.model.inputDirection
 
 			console.log 'down', e.which
 
@@ -59,7 +59,7 @@ define (require, exports, module) ->
 				when Keys.up,Keys.w    then direction.y -= 1;e.preventDefault()
 				when Keys.down,Keys.s  then direction.y += 1;e.preventDefault()
 
-			console.log "Down:",app.model.me.direction
+			console.log "Down:",app.model.inputDirection
 
 
 		keyUpHandler = (e) ->
@@ -67,7 +67,7 @@ define (require, exports, module) ->
 
 			delete keysDown[e.which]
 
-			direction = app.model.me.direction
+			direction = app.model.inputDirection
 
 			switch e.which
 				when Keys.left,Keys.a  then direction.x += 1;e.preventDefault()
@@ -77,7 +77,7 @@ define (require, exports, module) ->
 
 			#normalize( direction )
 
-			console.log "Up:",app.model.me.direction
+			console.log "Up:",app.model.inputDirection
 
 		mouseDownHandler = (e) ->
 			e.preventDefault()

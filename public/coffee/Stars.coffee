@@ -13,7 +13,7 @@ define (require, exports, module) ->
 	class Stars
 
 		constructor: (@model)->
-			
+
 			@arrayDots = []
 			for i in [0..500]
 				@arrayDots.push(createDot())
@@ -21,11 +21,10 @@ define (require, exports, module) ->
 		update: (dt) ->
 
 			@moveFactor = 0.15
-			console.log(Math.sin(dt));
 
 			for dot in @arrayDots
-				dot.x += -@model.me.direction.x * dot.z * @moveFactor
-				dot.y += -@model.me.direction.y * dot.z * @moveFactor
+				dot.x += -@model.inputDirection.x * dot.z * @moveFactor
+				dot.y += -@model.inputDirection.y * dot.z * @moveFactor
 
 				if dot.x >= WIDTH
 					dot.x = -WIDTH
@@ -37,9 +36,7 @@ define (require, exports, module) ->
 				else if dot.y <= -HEIGHT
 					dot.y = HEIGHT
 
-			@model.background.angle += -@model.me.direction.x*0.005;
-
-			if Math.abs(@model.me.direction.x) + Math.abs(@model.me.direction.y) >= 0.1
+			if Math.abs(@model.inputDirection.x) + Math.abs(@model.inputDirection.y) >= 0.1
 				@model.background.scale = Math.max( 1 , @model.background.scale- 0.001 )
 			else
 				@model.background.scale = Math.min( 1.05, @model.background.scale + 0.001 )
@@ -50,13 +47,7 @@ define (require, exports, module) ->
 			c.rotate(@model.background.angle);
 			c.scale( @model.background.scale, @model.background.scale )
 			c.fillStyle = "rgba( 255, 255, 255, 0.6 )"
-			for dot in @arrayDots
-				#krug
-				#c.beginPath()
-				#c.arc(~~dot.x, ~~dot.y, ~~dot.r, 0, 2 * Math.PI, false)
-				#c.fillStyle = "white"
-				#c.fill()
-				
+			for dot in @arrayDots			
 				c.beginPath()
 				
 				c.fillRect(~~dot.x, ~~dot.y, dot.r, dot.r)

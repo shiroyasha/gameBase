@@ -13,7 +13,7 @@
       keysDown = {};
       addMouseMotion = function(x, y) {
         var direction, dx, dy, position;
-        direction = app.model.me.direction;
+        direction = app.model.inputDirection;
         position = app.model.me.position;
         dx = x - position.x;
         dy = y - position.y;
@@ -31,7 +31,7 @@
       };
       removeMouseMotion = function() {
         var direction;
-        direction = app.model.me.direction;
+        direction = app.model.inputDirection;
         direction.x = 0;
         return direction.y = 0;
       };
@@ -41,7 +41,7 @@
           return;
         }
         keysDown[e.which] = true;
-        direction = app.model.me.direction;
+        direction = app.model.inputDirection;
         console.log('down', e.which);
         switch (e.which) {
           case Keys.left:
@@ -64,13 +64,13 @@
             direction.y += 1;
             e.preventDefault();
         }
-        return console.log("Down:", app.model.me.direction);
+        return console.log("Down:", app.model.inputDirection);
       };
       keyUpHandler = function(e) {
         var direction;
         e.preventDefault();
         delete keysDown[e.which];
-        direction = app.model.me.direction;
+        direction = app.model.inputDirection;
         switch (e.which) {
           case Keys.left:
           case Keys.a:
@@ -92,7 +92,7 @@
             direction.y -= 1;
             e.preventDefault();
         }
-        return console.log("Up:", app.model.me.direction);
+        return console.log("Up:", app.model.inputDirection);
       };
       mouseDownHandler = function(e) {
         e.preventDefault();
