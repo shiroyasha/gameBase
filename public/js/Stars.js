@@ -25,12 +25,11 @@
       Stars.prototype.update = function(dt) {
         var dot, _i, _len, _ref;
         this.moveFactor = 0.15;
-        console.log(Math.sin(dt));
         _ref = this.arrayDots;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           dot = _ref[_i];
-          dot.x += -this.model.me.direction.x * dot.z * this.moveFactor;
-          dot.y += -this.model.me.direction.y * dot.z * this.moveFactor;
+          dot.x += -this.model.inputDirection.x * dot.z * this.moveFactor;
+          dot.y += -this.model.inputDirection.y * dot.z * this.moveFactor;
           if (dot.x >= WIDTH) {
             dot.x = -WIDTH;
           } else if (dot.x <= -WIDTH) {
@@ -42,8 +41,7 @@
             dot.y = HEIGHT;
           }
         }
-        this.model.background.angle += -this.model.me.direction.x * 0.005;
-        if (Math.abs(this.model.me.direction.x) + Math.abs(this.model.me.direction.y) >= 0.1) {
+        if (Math.abs(this.model.inputDirection.x) + Math.abs(this.model.inputDirection.y) >= 0.1) {
           return this.model.background.scale = Math.max(1, this.model.background.scale - 0.001);
         } else {
           return this.model.background.scale = Math.min(1.05, this.model.background.scale + 0.001);

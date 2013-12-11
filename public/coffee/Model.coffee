@@ -14,8 +14,8 @@ define (require, exports, module) ->
 
 		me: {
 			position: {
-				x: 200
-				y: 300
+				x: 600
+				y: 600
 			}
 			velocity: {
 				x: 0
@@ -23,7 +23,7 @@ define (require, exports, module) ->
 			}
 			orientation: 0 #rad
 			mass: 10
-			radius: 10
+			radius: 20
 
 			speedFactor: 1
 			isOnFire: false
@@ -36,22 +36,18 @@ define (require, exports, module) ->
 		asteroids: [
 			{
 				position: {
-					x: 200
-					y: 300
+					x: 600
+					y: 400
 				}
 				velocity: {
 					x: 0
 					y: 0
 				}
-				orientation: 0 #rad
+				orientation: Math.PI/4 #rad
 				mass: 10
-				radius: 10
+				radius: 60
 				rotation: 0 #rad/sec
-			}
-		]
-
-
-		planets: [
+			},
 			{
 				position: {
 					x: 200
@@ -61,15 +57,48 @@ define (require, exports, module) ->
 					x: 0
 					y: 0
 				}
+				orientation: Math.PI/3 #rad
+				mass: 10
+				radius: 60
+				rotation: 0 #rad/sec
+			},
+			{
+				position: {
+					x: 400
+					y: 300
+				}
+				velocity: {
+					x: 0
+					y: 0
+				}
 				orientation: 0 #rad
 				mass: 10
-				radius: 10
+				radius: 200
+				rotation: 0 #rad/sec
+			}
+
+		]
+
+
+		planets: [
+			{
+				position: {
+					x: 100
+					y: 100
+				}
+				velocity: {
+					x: 0
+					y: 0
+				}
+				orientation: 0 #rad
+				mass: 10
+				radius: 300
 				rotation: 0 #rad/sec
 			}
 		]
 
 	}
-		
+
 
 	return model
 
