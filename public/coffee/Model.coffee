@@ -34,48 +34,48 @@ define (require, exports, module) ->
 
 
 		asteroids: [
-			{
-				position: {
-					x: 600
-					y: 400
-				}
-				velocity: {
-					x: 0
-					y: 0
-				}
-				orientation: Math.PI/4 #rad
-				mass: 10
-				radius: 60
-				rotation: 0 #rad/sec
-			},
-			{
-				position: {
-					x: 200
-					y: 300
-				}
-				velocity: {
-					x: 0
-					y: 0
-				}
-				orientation: Math.PI/3 #rad
-				mass: 10
-				radius: 60
-				rotation: 0 #rad/sec
-			},
-			{
-				position: {
-					x: 400
-					y: 300
-				}
-				velocity: {
-					x: 0
-					y: 0
-				}
-				orientation: 0 #rad
-				mass: 10
-				radius: 200
-				rotation: 0 #rad/sec
-			}
+			# {
+			# 	position: {
+			# 		x: 600
+			# 		y: 400
+			# 	}
+			# 	velocity: {
+			# 		x: 0
+			# 		y: 0
+			# 	}
+			# 	orientation: Math.PI/4 #rad
+			# 	mass: 10
+			# 	radius: 60
+			# 	rotation: 0 #rad/sec
+			# },
+			# {
+			# 	position: {
+			# 		x: 200
+			# 		y: 300
+			# 	}
+			# 	velocity: {
+			# 		x: 0
+			# 		y: 0
+			# 	}
+			# 	orientation: Math.PI/3 #rad
+			# 	mass: 10
+			# 	radius: 60
+			# 	rotation: 0 #rad/sec
+			# },
+			# {
+			# 	position: {
+			# 		x: 400
+			# 		y: 300
+			# 	}
+			# 	velocity: {
+			# 		x: 0
+			# 		y: 0
+			# 	}
+			# 	orientation: 0 #rad
+			# 	mass: 10
+			# 	radius: 200
+			# 	rotation: 0 #rad/sec
+			# }
 
 		]
 
@@ -84,7 +84,7 @@ define (require, exports, module) ->
 			{
 				position: {
 					x: 100
-					y: 100
+					y: -300
 				}
 				velocity: {
 					x: 0

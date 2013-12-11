@@ -28,53 +28,12 @@
         numberOfLives: 3,
         points: 0
       },
-      asteroids: [
-        {
-          position: {
-            x: 600,
-            y: 400
-          },
-          velocity: {
-            x: 0,
-            y: 0
-          },
-          orientation: Math.PI / 4,
-          mass: 10,
-          radius: 60,
-          rotation: 0
-        }, {
-          position: {
-            x: 200,
-            y: 300
-          },
-          velocity: {
-            x: 0,
-            y: 0
-          },
-          orientation: Math.PI / 3,
-          mass: 10,
-          radius: 60,
-          rotation: 0
-        }, {
-          position: {
-            x: 400,
-            y: 300
-          },
-          velocity: {
-            x: 0,
-            y: 0
-          },
-          orientation: 0,
-          mass: 10,
-          radius: 200,
-          rotation: 0
-        }
-      ],
+      asteroids: [],
       planets: [
         {
           position: {
             x: 100,
-            y: 100
+            y: -300
           },
           velocity: {
             x: 0,

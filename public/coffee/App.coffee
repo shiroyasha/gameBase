@@ -9,6 +9,7 @@ define (require, exports, module) ->
 	Player       = require 'Player'
 	Glow         = require 'Glow'
 	model		 = require 'Model'
+	Physics      = require 'physics/modelUpdater'
 
 
 	class App
@@ -31,6 +32,7 @@ define (require, exports, module) ->
 			requestAnimationFrame ( @_loop.bind(this) )
 
 		update: (dt) ->
+			Physics.updateModel( model, dt/100 )
 			@queue.update(dt)
 
 		render: (c) ->

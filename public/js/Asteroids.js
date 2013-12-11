@@ -26,7 +26,7 @@
           c.save();
           c.translate(asteroid.position.x + W / 2, asteroid.position.y + H / 2);
           c.rotate(asteroid.orientation);
-          size = asteroid.radius * 2;
+          size = asteroid.radius * 2 * 1.5;
           c.drawImage(image, 0, 0, W, H, -size / 2, -size / 2, size, size);
           _results.push(c.restore());
         }
