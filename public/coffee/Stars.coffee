@@ -4,72 +4,62 @@ define (require, exports, module) ->
 	DOT_SIZE = 2
 
 	createDot = -> {
-		x: (Math.random()*WIDTH)
-		y: (Math.random()*HEIGHT)
+		x: (-WIDTH + Math.random()*WIDTH*2)
+		y: (-HEIGHT + Math.random()*HEIGHT*2)
 		z: (Math.random()*Z_FAKTOR)
 		r: (Math.random() + 1)*DOT_SIZE
 	}
 
 	class Stars
 
-		constructor: (@acc = 0.05)->
+		constructor: (@model)->
+			@rot = 0;
 			@arrayDots = []
-			for i in [0..100]
+			for i in [0..500]
 				@arrayDots.push(createDot())
 
 		update: (dt) ->
-			console.log @acc
-			@dx = 0
-			#
-			if KEYS[37]?
-				@dx -= 1 * @acc
-				if @acc < 1 then @acc+= @acc
-			else
-				@dx -= 1 * @acc
-				if @acc > 0 then @acc-= @acc
 
-			if KEYS[39]?
-				@dx += 1 * @acc
-				if @acc < 1 then @acc+= @acc
-			else
-				@dx += 1 * @acc
-				if @acc > 0 then @acc-= @acc
-
-			#
-			@dy = 0
-			#
-			if KEYS[38]?
-				@dy -= 1 * @acc
-				if @acc < 1 then @acc+= @acc
-			else
-				@dy -= 1 * @acc
-				if @acc > 0 then @acc-= @acc
-
-			if KEYS[40]?
-				@dy += 1 * @acc
-				if @acc < 1 then @acc+= @acc
-			else
-				@dy += 1 * @acc
-				if @acc > 0 then @acc-= @acc
-			#
-
-			@moveFactor = 0.05
+			@moveFactor = 0.15
 
 			for dot in @arrayDots
-				dot.x += @dx * dot.z * @moveFactor
-				dot.y += @dy * dot.z * @moveFactor
+				dot.x += -@model.me.direction.x * dot.z * @moveFactor
+				dot.y += -@model.me.direction.y * dot.z * @moveFactor
 
-				if dot.x >= WIDTH then dot.x = 0
-				if dot.y >= HEIGHT then dot.y = 0
+				if dot.x >= WIDTH
+					dot.x = -WIDTH
+				else if dot.x <= -WIDTH
+					dot.x = WIDTH
+
+				if dot.y >= HEIGHT
+					dot.y = -HEIGHT
+				else if dot.y <= -HEIGHT
+					dot.y = HEIGHT
+
+			@model.background.angle += -@model.me.direction.x*0.005;
+
+			if Math.abs(@model.me.direction.x) + Math.abs(@model.me.direction.y) >= 0.1
+				@model.background.scale = Math.max( 1 , @model.background.scale- 0.001 )
+			else
+				@model.background.scale = Math.min( 1.05, @model.background.scale + 0.001 )
 
 		render: (c) ->
+			c.save()
+			c.translate( WIDTH/2, HEIGHT/2)
+			c.rotate(@model.background.angle);
+			c.scale( @model.background.scale, @model.background.scale )
+			c.fillStyle = "rgba( 255, 255, 255, 0.6 )"
 			for dot in @arrayDots
+				#krug
 				#c.beginPath()
 				#c.arc(~~dot.x, ~~dot.y, ~~dot.r, 0, 2 * Math.PI, false)
 				#c.fillStyle = "white"
 				#c.fill()
+				
 				c.beginPath()
+				
 				c.fillRect(~~dot.x, ~~dot.y, dot.r, dot.r)
-				c.fillStyle = "white"
 				c.fill()
+			c.restore()
+			
 	return Stars

@@ -22,7 +22,7 @@ define (require, exports, module) ->
 			#console.log "rgb(#{~~@boja[0]}, #{~~@boja[1]}, #{~~@boja[2]})"
 			#c.globalCompositeOperation = 'lighter'
 			c.fillStyle = "rgb(#{~~@boja[0]}, #{~~@boja[1]}, #{~~@boja[2]})"
-			#c.fillStyle = 'rgba(0,0,0, 0.2)'
+			#c.fillStyle = 'rgba(0,0,0, 0.8)'
 			c.fillRect( 0, 0, WIDTH, HEIGHT )
 
 	return Background

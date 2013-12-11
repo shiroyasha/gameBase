@@ -1,33 +1,36 @@
 define (require, exports, module) ->
 
-	area = $('canvas')[0];
-	c    = area.getContext '2d'
 	RenderQueue = require 'RenderQueue'
-	Background = require 'Background'
-	Stars = require 'Stars'
+	Background  = require 'Background'
+	Stars       = require 'Stars'
+	model		= require 'Model'
 
+	class App
 
-	$(document).on 'keydown', (e) -> KEYS[e.keyCode] = true
-	$(document).on 'keyup', (e) -> delete KEYS[e.keyCode]
+		constructor: (@c)->
+			@model   = model
+			@queue   = new RenderQueue()
+			@queue.add new Background()
+			@queue.add new Stars(model)
 
+			@lastTime = null
+			requestAnimationFrame ( @_loop.bind(this) )	
 
-	$ ->
-		queue = new RenderQueue()
-		queue.add new Background()
-		queue.add new Stars()
+		update: (dt) ->
+			@queue.update(dt)
 
-		render = (dt) ->
-			queue.update(dt)
-			queue.render(c)		
+		render: (c) ->
+			@queue.render(c)	
 
-		lastTime = null
-		_loop = (time) ->
-			if lastTime == null then lastTime = time
-			dt = time - lastTime
+		_loop: (time) ->
+			if @lastTime == null then @lastTime = time
+			dt = time - @lastTime
 			
-			render(dt)
-			lastTime = time
+			@update(dt)
+			@render(@c)
 
-			requestAnimationFrame (_loop)
+			@lastTime = time
 
-		requestAnimationFrame (_loop)
+			requestAnimationFrame ( @_loop.bind(this) )
+
+	return App
