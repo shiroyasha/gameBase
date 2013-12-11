@@ -13,7 +13,7 @@ define (require, exports, module) ->
 	class Stars
 
 		constructor: (@model)->
-			@rot = 0;
+			
 			@arrayDots = []
 			for i in [0..500]
 				@arrayDots.push(createDot())
@@ -21,6 +21,7 @@ define (require, exports, module) ->
 		update: (dt) ->
 
 			@moveFactor = 0.15
+			console.log(Math.sin(dt));
 
 			for dot in @arrayDots
 				dot.x += -@model.me.direction.x * dot.z * @moveFactor

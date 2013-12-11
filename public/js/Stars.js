@@ -16,7 +16,6 @@
       function Stars(model) {
         var i, _i;
         this.model = model;
-        this.rot = 0;
         this.arrayDots = [];
         for (i = _i = 0; _i <= 500; i = ++_i) {
           this.arrayDots.push(createDot());
@@ -26,6 +25,7 @@
       Stars.prototype.update = function(dt) {
         var dot, _i, _len, _ref;
         this.moveFactor = 0.15;
+        console.log(Math.sin(dt));
         _ref = this.arrayDots;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           dot = _ref[_i];
