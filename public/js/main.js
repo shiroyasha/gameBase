@@ -12,22 +12,11 @@
       mouseActive = false;
       keysDown = {};
       addMouseMotion = function(x, y) {
-        var direction, dx, dy, position;
-        direction = app.model.inputDirection;
-        position = app.model.me.position;
-        dx = x - position.x;
-        dy = y - position.y;
-        if (dx !== 0) {
-          direction.x = dx / Math.abs(dx);
-        } else {
-          direction.x = 0;
+        var k;
+        k = 1.72;
+        if ((y + k * x + 320 * k > 0) && (y - k * x + 960 * k > 0)) {
+          return console.log("Going forward");
         }
-        if (dy !== 0) {
-          direction.y = dy / Math.abs(dy);
-        } else {
-          direction.y = 0;
-        }
-        return console.log("MouseMotion: ", direction.x, direction.y);
       };
       removeMouseMotion = function() {
         var direction;
@@ -38,7 +27,7 @@
       keyDownHandler = function(e) {
         var direction;
         if (keysDown[e.which] != null) {
-          return;
+          return e.preventDefault();
         }
         keysDown[e.which] = true;
         direction = app.model.inputDirection;

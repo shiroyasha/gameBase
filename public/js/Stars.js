@@ -24,7 +24,7 @@
 
       Stars.prototype.update = function(dt) {
         var dot, _i, _len, _ref;
-        this.moveFactor = 0.15;
+        this.moveFactor = 0.18;
         _ref = this.arrayDots;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           dot = _ref[_i];
@@ -41,6 +41,7 @@
             dot.y = HEIGHT;
           }
         }
+        this.model.background.angle += -this.model.inputDirection.x * 0.005;
         if (Math.abs(this.model.inputDirection.x) + Math.abs(this.model.inputDirection.y) >= 0.1) {
           return this.model.background.scale = Math.max(1, this.model.background.scale - 0.001);
         } else {
@@ -51,7 +52,7 @@
       Stars.prototype.render = function(c) {
         var dot, _i, _len, _ref;
         c.save();
-        c.translate(WIDTH / 2, HEIGHT / 2);
+        c.translate(this.model.me.position.x, this.model.me.position.y);
         c.rotate(this.model.background.angle);
         c.scale(this.model.background.scale, this.model.background.scale);
         c.fillStyle = "rgba( 255, 255, 255, 0.6 )";

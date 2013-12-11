@@ -10,10 +10,23 @@
       Player.prototype.update = function(dt) {};
 
       Player.prototype.render = function(c) {
+        var arms, i, p, _i;
+        p = this.model.me;
         c.save();
         c.beginPath();
-        c.fillRect(~~this.model.me.position.x, ~~this.model.me.position.y, dot.r, dot.r);
+        c.translate(p.position.x, p.position.y);
+        c.moveTo(0, 0 - p.radius);
+        arms = 5;
+        c.rotate(Math.PI);
+        for (i = _i = 0; 0 <= arms ? _i <= arms : _i >= arms; i = 0 <= arms ? ++_i : --_i) {
+          c.rotate(Math.PI / arms);
+          c.lineTo(0, 0 - (p.radius * 2));
+          c.rotate(Math.PI / arms);
+          c.lineTo(0, 0 - p.radius);
+        }
+        c.fillStyle = "yellow";
         c.fill();
+        c.restore();
         return c.restore();
       };
 

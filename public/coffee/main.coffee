@@ -18,24 +18,31 @@ define (require, exports, module) ->
 		#		d.x = Math.round((d.x/magnitude)*1000)/1000
 		#		d.y = Math.round((d.y/magnitude)*1000)/1000
 
+		# old mouse detection:
+		# addMouseMotion = (x,y) ->
+		# 	direction = app.model.inputDirection
+		# 	position  = app.model.me.position
+
+		# 	dx = x - position.x
+		# 	dy = y - position.y
+
+		# 	if dx != 0
+		# 		direction.x = dx/Math.abs(dx)
+		# 	else
+		# 		direction.x = 0
+
+		# 	if dy != 0 
+		# 		direction.y = dy/Math.abs(dy)
+		# 	else
+		# 		direction.y = 0
+		
+		#	console.log "MouseMotion: ",direction.x,direction.y
 		addMouseMotion = (x,y) ->
-			direction = app.model.inputDirection
-			position  = app.model.me.position
+			k = 1.72; #angle of mouse forward detection
+			if((y + k*x + 320*k > 0) and (y - k*x + 960*k > 0))
+				console.log "Going forward"
 
-			dx = x - position.x
-			dy = y - position.y
-
-			if dx != 0
-				direction.x = dx/Math.abs(dx)
-			else
-				direction.x = 0
-
-			if dy != 0 
-				direction.y = dy/Math.abs(dy)
-			else
-				direction.y = 0
-
-			console.log "MouseMotion: ",direction.x,direction.y
+			
 
 		removeMouseMotion = ->
 			direction = app.model.inputDirection
@@ -46,7 +53,7 @@ define (require, exports, module) ->
 			
 
 
-			if keysDown[e.which]? then return
+			if keysDown[e.which]? then return e.preventDefault()
 			keysDown[e.which] = true
 
 			direction = app.model.inputDirection

@@ -14,8 +14,8 @@ define (require, exports, module) ->
 
 		me: {
 			position: {
-				x: 200
-				y: 300
+				x: 640
+				y: 550
 			}
 			velocity: {
 				x: 0
@@ -23,7 +23,7 @@ define (require, exports, module) ->
 			}
 			orientation: 0 #rad
 			mass: 10
-			radius: 10
+			radius: 20
 
 			speedFactor: 1
 			isOnFire: false

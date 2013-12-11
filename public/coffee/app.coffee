@@ -4,6 +4,7 @@ define (require, exports, module) ->
 	Background  = require 'Background'
 	Stars       = require 'Stars'
 	model		= require 'Model'
+	Player		= require 'Player'
 
 	class App
 
@@ -12,6 +13,7 @@ define (require, exports, module) ->
 			@queue   = new RenderQueue()
 			@queue.add new Background()
 			@queue.add new Stars(model)
+			@queue.add new Player(model)
 
 			@lastTime = null
 			requestAnimationFrame ( @_loop.bind(this) )	

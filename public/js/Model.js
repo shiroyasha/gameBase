@@ -13,8 +13,8 @@
       },
       me: {
         position: {
-          x: 200,
-          y: 300
+          x: 640,
+          y: 550
         },
         velocity: {
           x: 0,
@@ -22,7 +22,7 @@
         },
         orientation: 0,
         mass: 10,
-        radius: 10,
+        radius: 20,
         speedFactor: 1,
         isOnFire: false,
         numberOfLives: 3,

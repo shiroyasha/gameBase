@@ -12,14 +12,12 @@
 </head>
 
 <body>
-	<canvas width="800" height="600"></canvas>
+	<canvas width="1280" height="720"></canvas>
 
 	<script src='/vendor/jquery.js'></script>
 
 	<script type="text/javascript">
-
-		KEYS = {}
-		
+		/*
 		function windowSizeUpdate() {
 			WIDTH = $(window).width()
 			HEIGHT = $(window).height()
@@ -29,10 +27,10 @@
 			$("canvas")[0].width = WIDTH
 			$("canvas")[0].height = HEIGHT
 		}
-
+*/
 		$(function(){
-			windowSizeUpdate();
-			$(window).on( 'resize', windowSizeUpdate );
+			WIDTH  = 1280;
+			HEIGHT = 720;
 		});
 		
 

@@ -20,7 +20,7 @@ define (require, exports, module) ->
 
 		update: (dt) ->
 
-			@moveFactor = 0.15
+			@moveFactor = 0.18
 
 			for dot in @arrayDots
 				dot.x += -@model.inputDirection.x * dot.z * @moveFactor
@@ -36,6 +36,8 @@ define (require, exports, module) ->
 				else if dot.y <= -HEIGHT
 					dot.y = HEIGHT
 
+			@model.background.angle += -@model.inputDirection.x*0.005;
+
 			if Math.abs(@model.inputDirection.x) + Math.abs(@model.inputDirection.y) >= 0.1
 				@model.background.scale = Math.max( 1 , @model.background.scale- 0.001 )
 			else
@@ -43,15 +45,17 @@ define (require, exports, module) ->
 
 		render: (c) ->
 			c.save()
-			c.translate( WIDTH/2, HEIGHT/2)
+			c.translate( @model.me.position.x, @model.me.position.y)
 			c.rotate(@model.background.angle);
 			c.scale( @model.background.scale, @model.background.scale )
 			c.fillStyle = "rgba( 255, 255, 255, 0.6 )"
+
 			for dot in @arrayDots			
 				c.beginPath()
 				
 				c.fillRect(~~dot.x, ~~dot.y, dot.r, dot.r)
 				c.fill()
+
 			c.restore()
 			
 	return Stars
