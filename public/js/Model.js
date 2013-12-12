@@ -21,7 +21,8 @@
           y: 0
         },
         orientation: 0,
-        mass: 10,
+        rotation: 0,
+        mass: 10000,
         radius: 20,
         speedFactor: 1,
         isOnFire: false,

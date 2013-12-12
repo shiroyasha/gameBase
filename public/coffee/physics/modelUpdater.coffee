@@ -3,7 +3,7 @@ define (require, exports, module) ->
 
     exp = {}
 
-    damping = 0.95 #uspori pri sudaru
+    damping = 0.8 #uspori pri sudaru
 
     AsteroidHandler = require 'physics/AsteroidHandler'
 
@@ -40,8 +40,8 @@ define (require, exports, module) ->
                 collisionCheck(list[b1], list[b2])
 
     collisionCheck= (body1, body2) ->
-        dist = Math.sqrt(Math.pow(body1.position.x-body2.position.x,2)+Math.pow(body1.position.y-body2.position.y,2))
-        if dist < (body1.radius+body2.radius)
+        dist = magnitude(body1.position.x - body2.position.x, body1.position.y - body2.position.y)
+        if dist <= (body1.radius+body2.radius)
             bounce(body1, body2, dist, damping)
 
     bounce= (body1, body2, dist, damping=1) ->
@@ -49,6 +49,7 @@ define (require, exports, module) ->
 
         dx    = body1.position.x - body2.position.x
         dy    = body1.position.y - body2.position.y
+
         ang   = Math.atan2(dy, dx)
 
         mag1  = Math.sqrt(body1.velocity.x*body1.velocity.x + body1.velocity.y*body1.velocity.y)
@@ -63,8 +64,10 @@ define (require, exports, module) ->
         nSx2  = mag2*Math.cos(dir2-ang)
         nSy2  = mag2*Math.sin(dir2-ang)
 
-        fSx1  = ((body1.mass-body2.mass)*nSx1+(body2.mass+body2.mass)*nSx2)/(body1.mass+body2.mass);
-        fSx2  = ((body1.mass+body1.mass)*nSx1+(body2.mass-body1.mass)*nSx2)/(body1.mass+body2.mass);
+        massSum = body1.mass + body2.mass
+
+        fSx1  = ((body1.mass-body2.mass)*nSx1+(body2.mass+body2.mass)*nSx2)/massSum;
+        fSx2  = ((body1.mass+body1.mass)*nSx1+(body2.mass-body1.mass)*nSx2)/massSum;
         fSy1  = nSy1;
         fSy2  = nSy2;
 
@@ -79,17 +82,20 @@ define (require, exports, module) ->
             body2.velocity.x *= damping
             body2.velocity.y *= damping
 
-        #razmakne ih kako bi se sprecilo vezivanje tela.
+        # #razmakne ih kako bi se sprecilo vezivanje tela.
 
-        gap = body1.r + body2.radius - dist
+        gap = body1.radius + body2.radius - dist
         gapX = gap * Math.cos(ang)
         gapY = gap * Math.sin(ang)
 
+        body1.position.x += gapX * body1.mass / massSum
+        body1.position.y += gapY * body1.mass / massSum
+        body2.position.x -= gapX * body2.mass / massSum
+        body2.position.y -= gapY * body2.mass / massSum
 
-        massSum = body1.mass + body2.mass
-        body1.px += gapX * body1.mass / massSum
-        body1.py += gapY * body1.mass / massSum
-        body2.px -= gapX * body2.mass / massSum
-        body2.py -= gapY * body2.mass / massSum
+
+    magnitude= (dx, dy) ->  
+        r = Math.sqrt(dx*dx+ dy*dy)
+
 
     return exp
