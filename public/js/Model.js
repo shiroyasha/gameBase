@@ -20,9 +20,10 @@
           x: 0,
           y: 0
         },
-        orientation: 0,
-        mass: 10,
-        radius: 20,
+        orientation: -Math.PI / 2,
+        rotation: 0,
+        mass: 50,
+        radius: 50,
         speedFactor: 1,
         isOnFire: false,
         numberOfLives: 3,

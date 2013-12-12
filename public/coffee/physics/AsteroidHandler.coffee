@@ -2,12 +2,11 @@ define (require, exports, module) ->
 
     NUM_OF_ASTEROIDS= 200
 
-    MAX_DISTANCE     = 3000 #max distance between the asteroid and the player after which the asteroid is deleted
-    MIN_DISTANCE     = 0 #minimum distance at which an asteroid can be generated without the player noticing
-    SPEED            = 100
-    SPEED_VARIATION  = 100
-    RADIUS           = 50
-    RADIUS_VARIATION = 45
+    MAX_DISTANCE     = 2000 #max distance between the asteroid and the player after which the asteroid is deleted
+    MIN_DISTANCE     = 1000 #minimum distance at which an asteroid can be generated without the player noticing
+    SPEED            = 50
+    RADIUS           = 70
+    RADIUS_VARIATION = 60
     MASS             = 100
     MAX_ROTATION     = 0.002 #rad/s
 
@@ -18,16 +17,15 @@ define (require, exports, module) ->
         centerX = model.me.position.x
         centerY = model.me.position.y
 
+        liveAsteroids = []
+
         for aster in model.asteroids
-            #QUICK FIX, FIND OUT WHY
-            if aster? and magnitude(aster.position.x - centerX, aster.position.y - centerY) > MAX_DISTANCE
-                model.asteroids.splice(model.asteroids.indexOf(aster),1)
-            #pobije daleke asteroide
+            if magnitude(aster.position.x - centerX, aster.position.y - centerY) < MAX_DISTANCE
+                liveAsteroids.push(aster) #makes a list of asteroids still in the vicinity of the player
+        model.asteroids = liveAsteroids
 
-        # console.log model.asteroids.length, NUM_OF_ASTEROIDS
-        for i in [model.asteroids.length..NUM_OF_ASTEROIDS] by 1
+        for i in [model.asteroids.length...NUM_OF_ASTEROIDS] by 1
             model.asteroids.push(createNewAsteroid(model))
-
 
     createNewAsteroid= (model) ->
         newAsteroid = {}
@@ -43,14 +41,13 @@ define (require, exports, module) ->
             if MIN_DISTANCE < magnitude(newAsteroid.position.x - cX, newAsteroid.position.y - cY) < MAX_DISTANCE
                 break
 
-        newAsteroid.velocity.x = SPEED - Math.random() * SPEED_VARIATION
-        newAsteroid.velocity.y = SPEED - Math.random() * SPEED_VARIATION
+        newAsteroid.velocity.x = SPEED - Math.random() * 2 * SPEED
+        newAsteroid.velocity.y = SPEED - Math.random() * 2 * SPEED
         newAsteroid.radius     = RADIUS - Math.random() * RADIUS_VARIATION
         newAsteroid.mass       = newAsteroid.radius * newAsteroid.radius
 
         newAsteroid.orientation = Math.random() * Math.PI * 2
         newAsteroid.rotation = MAX_ROTATION -  2 * Math.random() * MAX_ROTATION
-
 
         return newAsteroid
 

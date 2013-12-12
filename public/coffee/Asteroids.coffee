@@ -16,16 +16,18 @@ define (requiere, exports, module) ->
 			W = 120
 			H = 120
 			image = window.images.Asteroids
-
+			c.fillStyle = 'blue'
 			for asteroid in @model.asteroids
 				c.save()
 
-				c.translate( asteroid.position.x + W/2, asteroid.position.y + H/2 )
-				c.rotate( asteroid.orientation )
+				#c.translate( asteroid.position.x + W/2, asteroid.position.y + H/2 )
+				#c.rotate( asteroid.orientation )
 
-				size = asteroid.radius*2*1.5
-
-				c.drawImage image, 0, 0, W, H, -size/2, -size/2, size, size
+				size = asteroid.radius#*1.5
+				c.beginPath()
+				c.arc( asteroid.position.x, asteroid.position.y, asteroid.radius, 0, Math.PI*2)
+				#c.drawImage image, 0, 0, W, H, -size/2, -size/2, size, size
+				c.fill()
 				c.restore()
 	return Asteroids
 

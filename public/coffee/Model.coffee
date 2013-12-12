@@ -21,9 +21,10 @@ define (require, exports, module) ->
 				x: 0
 				y: 0
 			}
-			orientation: 0 #rad
-			mass: 10
-			radius: 20
+			orientation: -Math.PI/2 #rad
+			rotation: 0
+			mass: 50
+			radius: 50
 
 			speedFactor: 1
 			isOnFire: false

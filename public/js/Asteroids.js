@@ -19,15 +19,16 @@
         W = 120;
         H = 120;
         image = window.images.Asteroids;
+        c.fillStyle = 'blue';
         _ref = this.model.asteroids;
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           asteroid = _ref[_i];
           c.save();
-          c.translate(asteroid.position.x + W / 2, asteroid.position.y + H / 2);
-          c.rotate(asteroid.orientation);
-          size = asteroid.radius * 2 * 1.5;
-          c.drawImage(image, 0, 0, W, H, -size / 2, -size / 2, size, size);
+          size = asteroid.radius;
+          c.beginPath();
+          c.arc(asteroid.position.x, asteroid.position.y, asteroid.radius, 0, Math.PI * 2);
+          c.fill();
           _results.push(c.restore());
         }
         return _results;

@@ -26,7 +26,6 @@
         }
         c.fillStyle = "yellow";
         c.fill();
-        c.restore();
         return c.restore();
       };
 

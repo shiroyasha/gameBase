@@ -29,6 +29,5 @@ define (require, exports, module) ->
             c.fill()
 
             c.restore()
-            c.restore()
 
     return Player

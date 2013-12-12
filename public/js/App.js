@@ -18,23 +18,48 @@
         this.model = model;
         InputHandler(this.model);
         this.queue = new RenderQueue();
-        this.queue.add(new Background(model));
-        this.queue.add(new Stars(model));
+        this.back = new Background(model);
+        this.stars = new Stars(model);
         this.queue.add(new Planets(model));
         this.queue.add(new Asteroids(model));
-        this.queue.add(new Player(model));
-        this.queue.add(new Glow(model));
+        this.player = new Player(model);
+        this.glow = new Glow(model);
         this.lastTime = null;
         requestAnimationFrame(this._loop.bind(this));
+        this.angle = -Math.PI / 6;
       }
 
       App.prototype.update = function(dt) {
+        if (this.model.inputDirection.y === -1) {
+          this.model.me.velocity.x += Math.cos(this.model.me.orientation) * 10;
+          this.model.me.velocity.y += Math.sin(this.model.me.orientation) * 10;
+        }
         Physics.updateModel(model, dt / 100);
-        return this.queue.update(dt);
+        this.queue.update(dt);
+        this.stars.update(dt);
+        this.back.update(dt);
+        this.player.update(dt);
+        return this.glow.update(dt);
       };
 
       App.prototype.render = function(c) {
-        return this.queue.render(c);
+        var X, Y;
+        X = 600 - this.model.me.position.x;
+        Y = 500 - this.model.me.position.y;
+        this.back.render(c);
+        c.save();
+        c.translate(X, Y);
+        c.translate(this.model.me.position.x, this.model.me.position.y);
+        c.rotate(this.angle);
+        c.translate(-this.model.me.position.x, -this.model.me.position.y);
+        this.stars.render(c);
+        c.fillStyle = 'red';
+        c.fillRect(0, 0, 1280, 10);
+        c.fillStyle = 'blue';
+        c.fillRect(0, 0, 10, 720);
+        this.queue.render(c);
+        this.glow.render(c);
+        return c.restore();
       };
 
       App.prototype._loop = function(time) {
