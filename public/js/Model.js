@@ -20,9 +20,9 @@
           x: 0,
           y: 0
         },
-        orientation: -Math.PI / 2,
+        orientation: -Math.PI / 4,
         rotation: 0,
-        mass: 50,
+        mass: 25000,
         radius: 50,
         speedFactor: 1,
         isOnFire: false,

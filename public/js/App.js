@@ -30,11 +30,21 @@
       }
 
       App.prototype.update = function(dt) {
+        var maxSpeed;
         if (this.model.inputDirection.y === -1) {
-          this.model.me.velocity.x += Math.cos(this.model.me.orientation) * 10;
-          this.model.me.velocity.y += Math.sin(this.model.me.orientation) * 10;
+          this.model.me.velocity.x += Math.cos(this.model.me.orientation) * 100;
+          this.model.me.velocity.y += Math.sin(this.model.me.orientation) * 100;
+          maxSpeed = 10;
+          this.model.me.velocity.x = Math.min(this.model.me.velocity.x, maxSpeed);
+          this.model.me.velocity.y = Math.min(this.model.me.velocity.y, maxSpeed);
         }
-        Physics.updateModel(model, dt / 100);
+        if (this.model.inputDirection.x === -1) {
+          this.model.me.orientation -= 0.01;
+        }
+        if (this.model.inputDirection.x === 1) {
+          this.model.me.orientation += 0.01;
+        }
+        Physics.updateModel(model, dt / 1000);
         this.queue.update(dt);
         this.stars.update(dt);
         this.back.update(dt);
@@ -47,12 +57,12 @@
         X = 600 - this.model.me.position.x;
         Y = 500 - this.model.me.position.y;
         this.back.render(c);
+        this.stars.render(c);
         c.save();
         c.translate(X, Y);
         c.translate(this.model.me.position.x, this.model.me.position.y);
-        c.rotate(this.angle);
+        c.rotate(-Math.PI / 2 - this.model.me.orientation);
         c.translate(-this.model.me.position.x, -this.model.me.position.y);
-        this.stars.render(c);
         c.fillStyle = 'red';
         c.fillRect(0, 0, 1280, 10);
         c.fillStyle = 'blue';

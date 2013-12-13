@@ -2,7 +2,7 @@
 (function() {
   define(function(require, exports, module) {
     var AsteroidHandler, MASS, MAX_DISTANCE, MAX_ROTATION, MIN_DISTANCE, NUM_OF_ASTEROIDS, RADIUS, RADIUS_VARIATION, SPEED, createNewAsteroid, magnitude;
-    NUM_OF_ASTEROIDS = 200;
+    NUM_OF_ASTEROIDS = 50;
     MAX_DISTANCE = 2000;
     MIN_DISTANCE = 1000;
     SPEED = 50;
@@ -31,19 +31,16 @@
       return _results;
     };
     createNewAsteroid = function(model) {
-      var cX, cY, newAsteroid, _ref;
+      var cX, cY, newAsteroid, randomAngle, randomRadius;
       newAsteroid = {};
       newAsteroid.position = {};
       newAsteroid.velocity = {};
       cX = model.me.position.x;
       cY = model.me.position.y;
-      while (true) {
-        newAsteroid.position.x = MAX_DISTANCE - Math.random() * MAX_DISTANCE * 2;
-        newAsteroid.position.y = MAX_DISTANCE - Math.random() * MAX_DISTANCE * 2;
-        if ((MIN_DISTANCE < (_ref = magnitude(newAsteroid.position.x - cX, newAsteroid.position.y - cY)) && _ref < MAX_DISTANCE)) {
-          break;
-        }
-      }
+      randomRadius = MIN_DISTANCE + Math.random() * (MAX_DISTANCE - MIN_DISTANCE);
+      randomAngle = Math.random() * Math.PI * 2;
+      newAsteroid.position.x = cX + randomRadius * Math.cos(randomAngle);
+      newAsteroid.position.y = cY + randomRadius * Math.sin(randomAngle);
       newAsteroid.velocity.x = SPEED - Math.random() * 2 * SPEED;
       newAsteroid.velocity.y = SPEED - Math.random() * 2 * SPEED;
       newAsteroid.radius = RADIUS - Math.random() * RADIUS_VARIATION;

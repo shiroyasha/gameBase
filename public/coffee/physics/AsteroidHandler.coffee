@@ -1,6 +1,6 @@
 define (require, exports, module) ->
 
-    NUM_OF_ASTEROIDS= 200
+    NUM_OF_ASTEROIDS= 50
 
     MAX_DISTANCE     = 2000 #max distance between the asteroid and the player after which the asteroid is deleted
     MIN_DISTANCE     = 1000 #minimum distance at which an asteroid can be generated without the player noticing
@@ -35,11 +35,20 @@ define (require, exports, module) ->
         cX = model.me.position.x
         cY = model.me.position.y
 
-        while true
-            newAsteroid.position.x = MAX_DISTANCE - Math.random()*MAX_DISTANCE*2 #krece se izmedju -MAX i MAX
-            newAsteroid.position.y = MAX_DISTANCE - Math.random()*MAX_DISTANCE*2 #krece se izmedju -MAX i MAX
-            if MIN_DISTANCE < magnitude(newAsteroid.position.x - cX, newAsteroid.position.y - cY) < MAX_DISTANCE
-                break
+        randomRadius = MIN_DISTANCE + Math.random()*( MAX_DISTANCE - MIN_DISTANCE )
+        randomAngle  = Math.random() * Math.PI*2
+
+        newAsteroid.position.x = cX + randomRadius*Math.cos( randomAngle )
+        newAsteroid.position.y = cY + randomRadius*Math.sin( randomAngle )
+
+        #newAsteroid.position.x = cX + MIN_DISTANCE + Math.random()*( MAX_DISTANCE - MIN_DISTANCE )
+        #newAsteroid.position.y = cY + MIN_DISTANCE + Math.random()*( MAX_DISTANCE - MIN_DISTANCE )
+
+        # while true
+        #     newAsteroid.position.x = model.me.position.x + MAX_DISTANCE - Math.random()*MAX_DISTANCE*2 #krece se izmedju -MAX i MAX
+        #     newAsteroid.position.y = model.me.position.y + MAX_DISTANCE - Math.random()*MAX_DISTANCE*2 #krece se izmedju -MAX i MAX
+        #     if MIN_DISTANCE < magnitude(newAsteroid.position.x - cX, newAsteroid.position.y - cY) < MAX_DISTANCE
+        #         break
 
         newAsteroid.velocity.x = SPEED - Math.random() * 2 * SPEED
         newAsteroid.velocity.y = SPEED - Math.random() * 2 * SPEED

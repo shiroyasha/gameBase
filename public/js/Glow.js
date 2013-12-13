@@ -28,6 +28,12 @@
         p = this.model.me;
         c.save();
         c.beginPath();
+        c.strokeStyle = 'red';
+        c.lineWidth = 10;
+        c.moveTo(p.position.x, p.position.y);
+        c.lineTo(p.position.x + 30 * Math.cos(p.orientation), p.position.y + 30 * Math.sin(p.orientation));
+        c.stroke();
+        c.beginPath();
         c.arc(p.position.x, p.position.y, p.radius, 0, Math.PI * 2);
         c.lineWidth = 10;
         c.strokeStyle = "#f44";

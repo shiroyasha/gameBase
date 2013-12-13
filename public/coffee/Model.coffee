@@ -21,9 +21,9 @@ define (require, exports, module) ->
 				x: 0
 				y: 0
 			}
-			orientation: -Math.PI/2 #rad
+			orientation: -Math.PI/4 #rad
 			rotation: 0
-			mass: 50
+			mass: 25000
 			radius: 50
 
 			speedFactor: 1

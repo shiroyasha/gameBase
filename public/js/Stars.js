@@ -17,19 +17,31 @@
         var i, _i;
         this.model = model;
         this.arrayDots = [];
-        for (i = _i = 0; _i <= 500; i = ++_i) {
+        for (i = _i = 0; _i <= 250; i = ++_i) {
           this.arrayDots.push(createDot());
         }
       }
 
       Stars.prototype.update = function(dt) {
-        var dot, _i, _len, _ref;
-        this.moveFactor = 0.15;
+        var c_x, c_y, dot, dx, dy, _i, _len, _ref;
+        this.moveFactor = 0.5;
+        this.model.background.angle += -this.model.inputDirection.x * 0.01;
         _ref = this.arrayDots;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           dot = _ref[_i];
-          dot.x += -this.model.inputDirection.x * dot.z * this.moveFactor;
-          dot.y += -this.model.inputDirection.y * dot.z * this.moveFactor;
+          dx = -this.model.inputDirection.x * dot.z * this.moveFactor;
+          dy = -this.model.inputDirection.y * dot.z * this.moveFactor;
+          if (this.model.inputDirection.x !== 0) {
+            this.model.background.angle = Math.min(5, this.model.background.angle);
+            c_x = this.model.inputDirection.x * -this.model.background.angle;
+            c_y = this.model.inputDirection.x * this.model.background.angle * 2;
+            dot.x += c_x + dx;
+            dot.y += c_y + dy;
+          } else {
+            this.model.background.angle = 1;
+            dot.x += dx;
+            dot.y += dy;
+          }
           if (dot.x >= WIDTH) {
             dot.x = -WIDTH;
           } else if (dot.x <= -WIDTH) {
@@ -51,8 +63,6 @@
       Stars.prototype.render = function(c) {
         var dot, _i, _len, _ref;
         c.save();
-        c.translate(WIDTH / 2, HEIGHT / 2);
-        c.rotate(this.model.background.angle);
         c.scale(this.model.background.scale, this.model.background.scale);
         c.fillStyle = "rgba( 255, 255, 255, 0.6 )";
         _ref = this.arrayDots;

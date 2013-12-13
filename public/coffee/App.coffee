@@ -36,11 +36,21 @@ define (require, exports, module) ->
 		update: (dt) ->
 
 			if @model.inputDirection.y == -1
-				@model.me.velocity.x += Math.cos(@model.me.orientation)*10
-				@model.me.velocity.y += Math.sin(@model.me.orientation)*10
+				@model.me.velocity.x += Math.cos(@model.me.orientation)*100
+				@model.me.velocity.y += Math.sin(@model.me.orientation)*100
+
+				maxSpeed = 10
+				@model.me.velocity.x = Math.min(@model.me.velocity.x, maxSpeed)
+				@model.me.velocity.y = Math.min(@model.me.velocity.y, maxSpeed)
+
+			if @model.inputDirection.x == -1
+				@model.me.orientation -= 0.01
+
+			if @model.inputDirection.x == 1
+				@model.me.orientation += 0.01
 
 
-			Physics.updateModel( model, dt/100 )
+			Physics.updateModel( model, dt/1000 )
 			@queue.update(dt)
 			@stars.update(dt)
 			@back.update(dt)
@@ -55,17 +65,17 @@ define (require, exports, module) ->
 			Y = 500 - @model.me.position.y
 
 			@back.render(c)
+			@stars.render(c)
 
 
 			c.save()
 
-			#c.scale(0.1, 0.1)
+			#c.scale(0.3, 0.3)
 			#c.translate(1000, 1000)
 			c.translate( X, Y )
 			c.translate( @model.me.position.x , @model.me.position.y )
-			c.rotate( @angle )
+			c.rotate( -Math.PI/2 - @model.me.orientation )
 			c.translate( (-@model.me.position.x), (-@model.me.position.y) )
-			@stars.render(c)
 
 			c.fillStyle = 'red'
 			c.fillRect( 0, 0, 1280, 10)
